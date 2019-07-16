@@ -69,6 +69,14 @@ function fulfillOrder(amount, ID){
             // Update the products in the source table
             connection.query("UPDATE products SET stock_quantity = stock_quantity - " + amount + "WHERE item_id = " + ID);
         
+        } else {
+            console.log("Item is out of stock");
         };
+
+        //Order fulfillment display
+        products();
     });
 };
+
+//Default display
+products();
