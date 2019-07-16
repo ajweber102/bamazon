@@ -36,6 +36,7 @@ var products = function(){
     });
 }
 
+// Prompting the user -- interacting via node.
 function userPrompt(){
     inquirer.prompt([
         {
@@ -54,5 +55,20 @@ function userPrompt(){
         var quantity = userResponse.Quantity;
         var requestedID = userResponse.ID;
         fulfillOrder(quantity, requestedID);
+    });
+};
+
+function fulfillOrder(amount, ID){
+    connection.query('SELECT * FROM products WHERE item_id = ' + ID, function(err,res){
+        if(err){console.log(err)};
+        if(amount <= res[0].stock_quantity){
+            var total = res[0].price * amount;
+            console.log("We have you item in stock for purchase.");
+            console.log("The total cost is " + total);
+
+            // Update the products in the source table
+            connection.query("UPDATE products SET stock_quantity = stock_quantity - " + amount + "WHERE item_id = " + ID);
+        
+        };
     });
 };
