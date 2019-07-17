@@ -3,13 +3,13 @@ var inquirer = require("inquirer");
 var mysql = require("mysql");
 var cliTable = require("cli-table");
 
-var connection = mysql.addConnection({
+var connection = mysql.createConnection({
     host:"localhost",
     // 3306 is the port for the MySQL Open Source Database
-    port:3306,
+    port: 3306,
     user:"root",
-    password:"",
-    database:"bamazon"
+    password:"P3pp3r102!",
+    database:"bamazon_db"
 });
 
 connection.connect(function(err){
@@ -22,7 +22,7 @@ var products = function(){
     connection.query(query, function(err, res){
         if(err) throw err;
         // Establishing the table as referenced in SQL
-        var showTable = new table ({
+        var showTable = new cliTable ({
             head: ["Item ID", "Product Name", "Category", "Price", "Quantity"],
             colWidths: [15,20,20,15,15]
         });
@@ -43,13 +43,11 @@ function userPrompt(){
             name: "ID",
             type: "input",
             message: "Welcome! Enter the Item ID for the item you would like to buy."
-            filter: Number
         },
         {
             name: "Quantity",
             type: "input",
             message: "How many of these item(s) would you like to buy?"
-            filter: Number
         },
     ]).then(function(userResponse){
         var quantity = userResponse.Quantity;
