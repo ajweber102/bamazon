@@ -2,7 +2,7 @@
 
 Welcome to the Bamazon app!
 
-Simply follow the prompts which will ask you to...
+Simply follow the prompts in your bash terminal which will ask you to...
 1) Enter the ID of the item you would like to buy.
 2) List how many you would like to buy.
 
